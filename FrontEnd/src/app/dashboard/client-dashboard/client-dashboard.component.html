@@ -1,0 +1,64 @@
+<div class="dash">
+  <header class="dash__header">
+    <div>
+      <p class="dash__eyebrow">Olá, {{ authService.currentUser()?.nomeCompleto }}</p>
+      <h1>Minhas solicitações</h1>
+    </div>
+    <a routerLink="/dashboard/cliente/nova-solicitacao" class="dash__cta">
+      <mat-icon>add</mat-icon>
+      Solicitar novo serviço
+    </a>
+  </header>
+
+  <div class="trust-note">
+    <mat-icon>shield</mat-icon>
+    <span>Todo profissional na Solvy passa por verificação de CPF, documentos e antecedentes antes de ser aprovado.</span>
+  </div>
+
+  @if (isLoading()) {
+    <p class="dash__loading">Carregando suas solicitações...</p>
+  } @else {
+    <mat-tab-group animationDuration="200ms">
+      <mat-tab [label]="'Em andamento (' + ativos().length + ')'">
+        <div class="request-list">
+          @for (r of ativos(); track r.id) {
+            <article class="request-card">
+              <div class="request-card__main">
+                <p class="request-card__category">{{ r.categoria }}</p>
+                <p class="request-card__meta">{{ r.outraParteNome }} · {{ r.criadaEm | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="request-card__side">
+                @if (r.valorOrcado) { <span class="request-card__price">R$ {{ r.valorOrcado }}</span> }
+                <app-status-badge [status]="r.status" />
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">Você ainda não tem solicitações em andamento.</p>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'Histórico (' + historico().length + ')'">
+        <div class="request-list">
+          @for (r of historico(); track r.id) {
+            <article class="request-card">
+              <div class="request-card__main">
+                <p class="request-card__category">{{ r.categoria }}</p>
+                <p class="request-card__meta">{{ r.outraParteNome }} · {{ r.criadaEm | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="request-card__side">
+                @if (r.valorOrcado) { <span class="request-card__price">R$ {{ r.valorOrcado }}</span> }
+                <app-status-badge [status]="r.status" />
+                @if (r.status === 'CONCLUIDA') {
+                  <button type="button" class="request-card__review-btn">Avaliar</button>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">Nenhum serviço concluído ou cancelado ainda.</p>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  }
+</div>

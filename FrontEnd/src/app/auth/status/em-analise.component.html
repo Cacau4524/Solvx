@@ -1,0 +1,27 @@
+<div class="auth-shell">
+  <header class="auth-topbar">
+    <a routerLink="/" class="auth-topbar__brand">
+      <img src="assets/logo.png" alt="Solvy" />
+      <span>solvy</span>
+    </a>
+  </header>
+
+  <main class="status-main">
+    <div class="status-panel">
+      <div class="status-icon status-icon--pending">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+
+      <span class="status-badge status-badge--pending">🟡 Em análise</span>
+
+      <h1>Sua documentação está em análise</h1>
+      <p>
+        Nossa equipe está verificando seus documentos para garantir a segurança da plataforma.
+        Prazo de análise: <strong>até 3 dias úteis</strong>.
+      </p>
+      <p>Assim que sua conta for aprovada, você receberá um e-mail e poderá começar a oferecer seus serviços.</p>
+
+      <button type="button" class="btn-auth btn-auth--ghost" style="margin-top:20px;" (click)="logout()">Sair</button>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,73 @@
+<section class="hero" id="home">
+  <div class="hero__grid">
+
+    <div class="hero__copy" @fadeInUp>
+      <h1 class="hero__title">
+        Seu problema.<br />
+        <span class="hero__title--blue">Nossa</span> <span class="hero__title--green">solução.</span>
+      </h1>
+      <p class="hero__subtitle">Encontre profissionais qualificados e confiáveis para qualquer serviço da sua casa.</p>
+
+      <form class="hero__search" (ngSubmit)="search()">
+        <div class="hero__search-field">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/></svg>
+          <input type="text" placeholder="Qual serviço você precisa?" name="service" [(ngModel)]="serviceQuery" />
+        </div>
+        <div class="hero__search-divider"></div>
+        <div class="hero__search-field">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.6"/></svg>
+          <input type="text" placeholder="Sua localização" name="location" [(ngModel)]="locationQuery" />
+        </div>
+        <button type="submit" class="hero__search-btn" aria-label="Pesquisar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+      </form>
+
+      <div class="hero__actions">
+        <button type="button" class="btn-hero btn-hero--primary" (click)="requestService()">
+          <span>Solicitar serviço</span>
+          <svg class="btn-hero__arrow" viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button type="button" class="btn-hero btn-hero--secondary" (click)="becomeProfessional()">
+          <svg class="btn-hero__tool" viewBox="0 0 24 24" width="18" height="18"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+          <span>Sou um profissional</span>
+        </button>
+      </div>
+
+      <div class="hero__benefits">
+        @for (b of benefits; track b.label) {
+          <div class="hero__benefit">
+            <span class="hero__benefit-check">✔</span>
+            <span>{{ b.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="hero__media" @zoomIn>
+      <svg class="hero__blob" viewBox="0 0 200 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M200 0c-50 60-70 140-30 200s-20 140 30 200V0z" fill="var(--color-green)"/>
+      </svg>
+
+      <img
+        src="assets/hero-profissional.jpg"
+        alt="Profissional realizando serviço residencial"
+        class="hero__photo"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="hero__photo-placeholder">
+        <span>Coloque sua foto em<br /><code>src/assets/hero-profissional.jpg</code></span>
+      </div>
+
+      <div class="floating-card" @fadeInUp>
+        <span class="floating-card__icon">✔</span>
+        <div>
+          <p class="floating-card__title">Serviço concluído</p>
+          <p class="floating-card__subtitle">Mais um cliente satisfeito!</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

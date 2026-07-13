@@ -1,0 +1,28 @@
+<div class="auth-shell">
+  <header class="auth-topbar">
+    <a routerLink="/" class="auth-topbar__brand">
+      <img src="assets/logo.png" alt="Solvy" />
+      <span>solvy</span>
+    </a>
+  </header>
+
+  <main class="status-main">
+    <div class="status-panel">
+      <svg class="status-illustration" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="80" r="70" fill="rgba(122,201,67,0.12)" />
+        <circle cx="100" cy="80" r="34" fill="var(--color-green)" />
+        <path d="M84 80l12 12 22-24" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <span class="status-badge status-badge--pending">🟡 Em análise</span>
+
+      <h1>Cadastro enviado com sucesso!</h1>
+      <p>Recebemos sua documentação. Agora nossa equipe iniciará a análise.</p>
+      <p>Prazo máximo: <strong>3 dias úteis</strong>. Você receberá uma notificação quando sua conta estiver aprovada.</p>
+
+      <a routerLink="/auth/provider/login" class="btn-auth btn-auth--primary btn-auth--green" style="margin-top:20px;display:inline-block;">
+        Voltar para Login
+      </a>
+    </div>
+  </main>
+</div>

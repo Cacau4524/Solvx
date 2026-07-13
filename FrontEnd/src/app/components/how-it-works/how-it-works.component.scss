@@ -1,0 +1,66 @@
+.how__timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.how__step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.how__step-card {
+  width: 220px;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 26px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 260ms ease, box-shadow 260ms ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.how__step-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-blue);
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.how__step-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: rgba(63, 168, 69, 0.1);
+  color: var(--color-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how__step-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.how__arrow {
+  color: var(--color-gray-300);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .how__timeline { flex-direction: column; }
+  .how__arrow { transform: rotate(90deg); }
+}

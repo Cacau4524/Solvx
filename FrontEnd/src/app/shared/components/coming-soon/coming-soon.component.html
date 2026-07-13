@@ -1,0 +1,12 @@
+@if (comingSoon.state().visible) {
+  <div class="overlay" [class.overlay--accent]="comingSoon.state().tone === 'accent'" @overlayFade>
+    <div class="overlay__panel" @panelPop>
+      <div class="overlay__spinner" aria-hidden="true">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="18" />
+        </svg>
+      </div>
+      <p class="overlay__message">{{ comingSoon.state().message }}</p>
+    </div>
+  </div>
+}

@@ -1,0 +1,26 @@
+<div class="auth-shell">
+  <header class="auth-topbar">
+    <a routerLink="/" class="auth-topbar__brand">
+      <img src="assets/logo.png" alt="Solvy" />
+      <span>solvy</span>
+    </a>
+  </header>
+
+  <main class="status-main">
+    <div class="status-panel">
+      <div class="status-icon status-icon--rejected">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      </div>
+
+      <span class="status-badge status-badge--rejected">🔴 Reprovado</span>
+
+      <h1>Sua documentação não foi aprovada</h1>
+      <p><strong>Motivo:</strong> {{ motivo }}</p>
+      <p>Você pode reenviar sua documentação corrigida para uma nova análise.</p>
+
+      <button type="button" class="btn-auth btn-auth--primary btn-auth--green" style="margin-top:20px;" (click)="reenviarDocumentacao()">
+        Reenviar documentação
+      </button>
+    </div>
+  </main>
+</div>

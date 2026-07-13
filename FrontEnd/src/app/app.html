@@ -1,0 +1,13 @@
+@if (!isAuthRoute()) {
+  <app-header />
+}
+
+<main>
+  <router-outlet />
+</main>
+
+@if (!isAuthRoute()) {
+  <app-footer />
+}
+
+<app-coming-soon />

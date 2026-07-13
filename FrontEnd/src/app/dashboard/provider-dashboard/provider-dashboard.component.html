@@ -1,0 +1,89 @@
+<div class="dash">
+  <header class="dash__header">
+    <p class="dash__eyebrow">Olá, {{ authService.currentUser()?.nomeCompleto }}</p>
+    <h1>Painel do prestador</h1>
+  </header>
+
+  <div class="verification-card">
+    <div class="verification-card__icon">
+      <mat-icon>verified_user</mat-icon>
+    </div>
+    <div class="verification-card__body">
+      <p class="verification-card__title">
+        @if (verificacao().totalmenteVerificado) { Perfil totalmente verificado } @else { Verificação em andamento }
+      </p>
+      <div class="verification-card__checks">
+        <span [class.checked]="verificacao().cpfValidado">✔ CPF validado</span>
+        <span [class.checked]="verificacao().documentoValidado">✔ Documento validado</span>
+        <span [class.checked]="verificacao().antecedentesVerificados">✔ Antecedentes verificados</span>
+      </div>
+    </div>
+    <div class="verification-card__rating">
+      <p class="verification-card__stars">★ {{ avaliacoes().mediaNotas }}</p>
+      <p class="verification-card__reviews">{{ avaliacoes().totalAvaliacoes }} avaliações</p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p class="dash__loading">Carregando solicitações...</p>
+  } @else {
+    <mat-tab-group animationDuration="200ms">
+      <mat-tab [label]="'Recebidas (' + recebidas().length + ')'">
+        <div class="request-list">
+          @for (r of recebidas(); track r.id) {
+            <article class="request-card">
+              <div class="request-card__main">
+                <p class="request-card__category">{{ r.categoria }}</p>
+                <p class="request-card__meta">{{ r.outraParteNome }} · {{ r.criadaEm | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="request-card__actions">
+                <button type="button" class="btn-reject" (click)="reject(r.id)">Recusar</button>
+                <button type="button" class="btn-accept" (click)="accept(r.id)">Aceitar</button>
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">Nenhuma solicitação nova no momento.</p>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'Em andamento (' + emAndamento().length + ')'">
+        <div class="request-list">
+          @for (r of emAndamento(); track r.id) {
+            <article class="request-card">
+              <div class="request-card__main">
+                <p class="request-card__category">{{ r.categoria }}</p>
+                <p class="request-card__meta">{{ r.outraParteNome }} · {{ r.criadaEm | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="request-card__side">
+                @if (r.valorOrcado) { <span class="request-card__price">R$ {{ r.valorOrcado }}</span> }
+                <app-status-badge [status]="r.status" />
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">Nenhum serviço em andamento.</p>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'Concluídas (' + concluidas().length + ')'">
+        <div class="request-list">
+          @for (r of concluidas(); track r.id) {
+            <article class="request-card">
+              <div class="request-card__main">
+                <p class="request-card__category">{{ r.categoria }}</p>
+                <p class="request-card__meta">{{ r.outraParteNome }} · {{ r.criadaEm | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="request-card__side">
+                @if (r.valorOrcado) { <span class="request-card__price">R$ {{ r.valorOrcado }}</span> }
+                <app-status-badge [status]="r.status" />
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">Nenhum serviço concluído ainda.</p>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  }
+</div>

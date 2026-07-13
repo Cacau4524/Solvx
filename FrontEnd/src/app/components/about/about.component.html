@@ -1,0 +1,43 @@
+<section class="about section" id="sobre" appObserveVisibility (visible)="onVisible()">
+  <div class="container about__inner">
+
+    @if (visible()) {
+      <div class="about__illustration" @zoomIn>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="160" r="150" fill="var(--color-gray-100)"/>
+          <rect x="70" y="120" width="70" height="150" rx="14" fill="#0A66C2"/>
+          <rect x="160" y="90" width="80" height="180" rx="14" fill="#3FA845"/>
+          <circle cx="105" cy="90" r="26" fill="#E8A672"/>
+          <circle cx="200" cy="66" r="26" fill="#E8A672"/>
+          <path d="M60 270h200" stroke="var(--color-gray-300)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="about__copy" @fadeInUp>
+        <span class="section__eyebrow">Sobre a Solvy</span>
+        <h2 class="section__title">Conectando pessoas e soluções</h2>
+        <p class="section__subtitle" style="max-width:520px;">
+          A Solvy é uma plataforma criada para conectar clientes e profissionais qualificados de maneira
+          rápida, moderna e segura. Acreditamos que contratar um serviço de confiança para a sua casa
+          não deveria depender apenas de indicação — deveria ser simples, transparente e seguro.
+        </p>
+
+        <div class="about__stats">
+          <div>
+            <p class="about__stat-number">10k+</p>
+            <p class="about__stat-label">Serviços concluídos</p>
+          </div>
+          <div>
+            <p class="about__stat-number">4.9</p>
+            <p class="about__stat-label">Avaliação média</p>
+          </div>
+          <div>
+            <p class="about__stat-number">98%</p>
+            <p class="about__stat-label">Clientes satisfeitos</p>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

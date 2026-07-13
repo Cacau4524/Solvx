@@ -1,0 +1,36 @@
+<section class="testimonials section" id="avaliacoes" appObserveVisibility (visible)="onVisible()">
+  <div class="container">
+
+    <div class="section__head">
+      <span class="section__eyebrow">Quem usa, recomenda</span>
+      <h2 class="section__title">O que dizem nossos clientes</h2>
+    </div>
+
+    @if (visible()) {
+      <div class="testimonials__carousel" @fadeInUp>
+        @for (t of testimonials; track t.name; let i = $index) {
+          @if (i === activeIndex()) {
+            <div class="testimonial-card" @fadeInUp>
+              <div class="testimonial-card__stars">★★★★★</div>
+              <p class="testimonial-card__comment">“{{ t.comment }}”</p>
+              <div class="testimonial-card__author">
+                <span class="testimonial-card__avatar">{{ t.initials }}</span>
+                <div>
+                  <p class="testimonial-card__name">{{ t.name }}</p>
+                  <p class="testimonial-card__city">{{ t.city }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        }
+
+        <div class="testimonials__dots">
+          @for (t of testimonials; track t.name; let i = $index) {
+            <button type="button" class="dot" [class.dot--active]="i === activeIndex()" (click)="goTo(i)" [attr.aria-label]="'Ver avaliação ' + (i + 1)"></button>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

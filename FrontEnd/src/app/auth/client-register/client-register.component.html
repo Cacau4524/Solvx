@@ -1,0 +1,124 @@
+<div class="auth-shell">
+  <header class="auth-topbar">
+    <a routerLink="/" class="auth-topbar__brand">
+      <img src="assets/logo.png" alt="Solvy" />
+      <span>solvy</span>
+    </a>
+    <a routerLink="/auth" class="auth-topbar__back">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar
+    </a>
+  </header>
+
+  <main style="display:flex;align-items:center;justify-content:center;flex:1;">
+    <div class="auth-panel auth-panel--wide">
+      <h1>Criar conta de cliente</h1>
+      <p class="auth-panel__subtitle">Leva menos de 2 minutos.</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form-grid">
+
+        <mat-form-field appearance="outline" class="span-2">
+          <mat-label>Nome completo</mat-label>
+          <input matInput formControlName="nomeCompleto" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="telefone" appMask="telefone" placeholder="(00) 00000-0000" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" appMask="cpf" placeholder="000.000.000-00" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="cep" appMask="cep" placeholder="00000-000" />
+          @if (isLookingUpCep()) { <mat-icon matSuffix class="spin">autorenew</mat-icon> }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+          <mat-label>Rua</mat-label>
+          <input matInput formControlName="rua" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Complemento</mat-label>
+          <input matInput formControlName="complemento" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="bairro" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput formControlName="cidade" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput formControlName="estado" maxlength="2" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data de nascimento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataNascimento" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+          <mat-label>Gênero</mat-label>
+          <mat-select formControlName="genero">
+            @for (g of generos; track g.value) {
+              <mat-option [value]="g.value">{{ g.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="senha" />
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword.set(!hidePassword())">
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar senha</mat-label>
+          <input matInput [type]="hideConfirmPassword() ? 'password' : 'text'" formControlName="confirmarSenha" />
+          <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword.set(!hideConfirmPassword())">
+            <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        @if (form.hasError('passwordsMismatch') && form.controls.confirmarSenha.touched) {
+          <p class="span-2 field-error">As senhas não coincidem.</p>
+        }
+
+        <mat-checkbox formControlName="aceiteTermos" class="span-2">
+          Aceito os Termos de Uso e Política de Privacidade.
+        </mat-checkbox>
+
+        <button mat-flat-button color="primary" type="submit" class="span-2 submit-btn" [disabled]="isLoading()">
+          @if (isLoading()) { <mat-spinner diameter="20" strokeWidth="3"></mat-spinner> } @else { <span>Criar Conta</span> }
+        </button>
+      </form>
+
+      <p class="auth-footnote">Já tem conta? <a routerLink="/auth/client/login">Entrar</a></p>
+    </div>
+  </main>
+</div>

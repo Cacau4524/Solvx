@@ -1,0 +1,217 @@
+<div class="auth-shell">
+  <header class="auth-topbar">
+    <a routerLink="/" class="auth-topbar__brand">
+      <img src="assets/logo.png" alt="Solvy" />
+      <span>solvy</span>
+    </a>
+    <a routerLink="/auth" class="auth-topbar__back">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar
+    </a>
+  </header>
+
+  <main style="display:flex;align-items:center;justify-content:center;flex:1;padding:20px;">
+    <div class="auth-panel auth-panel--wide stepper-panel">
+      <h1>Cadastro de prestador</h1>
+      <p class="auth-panel__subtitle">Complete as 4 etapas para começar a oferecer seus serviços.</p>
+
+      <mat-stepper linear #stepper animationDuration="280ms">
+
+        <!-- Etapa 1: Dados pessoais -->
+        <mat-step [stepControl]="personalForm" label="Dados pessoais">
+          <form [formGroup]="personalForm" class="form-grid">
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Nome completo</mat-label>
+              <input matInput formControlName="nomeCompleto" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>CPF</mat-label>
+              <input matInput formControlName="cpf" appMask="cpf" placeholder="000.000.000-00" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>RG (opcional)</mat-label>
+              <input matInput formControlName="rg" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Data de nascimento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dataNascimento" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Gênero</mat-label>
+              <mat-select formControlName="genero">
+                @for (g of generos; track g.value) { <mat-option [value]="g.value">{{ g.label }}</mat-option> }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Telefone</mat-label>
+              <input matInput formControlName="telefone" appMask="telefone" placeholder="(00) 00000-0000" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Senha</mat-label>
+              <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="senha" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Confirmar senha</mat-label>
+              <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="confirmarSenha" />
+            </mat-form-field>
+          </form>
+
+          <div class="stepper-actions">
+            <button mat-flat-button color="primary" matStepperNext [disabled]="personalForm.invalid">Continuar</button>
+          </div>
+        </mat-step>
+
+        <!-- Etapa 2: Endereço -->
+        <mat-step [stepControl]="addressForm" label="Endereço">
+          <form [formGroup]="addressForm" class="form-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>CEP</mat-label>
+              <input matInput formControlName="cep" appMask="cep" placeholder="00000-000" />
+              @if (isLookingUpCep()) { <mat-icon matSuffix class="spin">autorenew</mat-icon> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Número</mat-label>
+              <input matInput formControlName="numero" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Rua</mat-label>
+              <input matInput formControlName="rua" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Complemento</mat-label>
+              <input matInput formControlName="complemento" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Bairro</mat-label>
+              <input matInput formControlName="bairro" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input matInput formControlName="cidade" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Estado</mat-label>
+              <input matInput formControlName="estado" maxlength="2" />
+            </mat-form-field>
+          </form>
+
+          <div class="stepper-actions">
+            <button mat-stroked-button matStepperPrevious>Voltar</button>
+            <button mat-flat-button color="primary" matStepperNext [disabled]="addressForm.invalid">Continuar</button>
+          </div>
+        </mat-step>
+
+        <!-- Etapa 3: Informações profissionais -->
+        <mat-step [stepControl]="professionalForm" label="Informações profissionais">
+          <form [formGroup]="professionalForm" class="form-grid">
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Categoria principal</mat-label>
+              <mat-select formControlName="categoriaPrincipal">
+                @for (c of categorias; track c) { <mat-option [value]="c">{{ c }}</mat-option> }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Especialidades</mat-label>
+              <input matInput formControlName="especialidades" placeholder="Ex.: instalação, manutenção preventiva..." />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Descrição profissional</mat-label>
+              <textarea matInput rows="3" formControlName="descricao"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Experiência</mat-label>
+              <input matInput formControlName="experiencia" placeholder="Ex.: 5 anos" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Preço médio (R$)</mat-label>
+              <input matInput type="number" formControlName="precoMedio" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Cidade de atuação</mat-label>
+              <input matInput formControlName="cidadeAtuacao" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Raio de atendimento (km)</mat-label>
+              <input matInput type="number" formControlName="raioAtendimento" />
+            </mat-form-field>
+
+            <div class="span-2 upload-row">
+              <label class="upload-field">
+                <span>Foto de perfil</span>
+                <input type="file" accept="image/*" (change)="onFileSelected($event, 'fotoPerfil')" />
+                <span class="upload-field__status">{{ fotoPerfil()?.name ?? 'Nenhum arquivo selecionado' }}</span>
+              </label>
+              <label class="upload-field">
+                <span>Foto de documento</span>
+                <input type="file" accept="image/*" (change)="onFileSelected($event, 'fotoDocumento')" />
+                <span class="upload-field__status">{{ fotoDocumento()?.name ?? 'Nenhum arquivo selecionado' }}</span>
+              </label>
+              <label class="upload-field">
+                <span>Currículo (PDF)</span>
+                <input type="file" accept="application/pdf" (change)="onFileSelected($event, 'curriculo')" />
+                <span class="upload-field__status">{{ curriculo()?.name ?? 'Nenhum arquivo selecionado' }}</span>
+              </label>
+            </div>
+          </form>
+
+          <div class="stepper-actions">
+            <button mat-stroked-button matStepperPrevious>Voltar</button>
+            <button mat-flat-button color="primary" matStepperNext [disabled]="professionalForm.invalid">Continuar</button>
+          </div>
+        </mat-step>
+
+        <!-- Etapa 4: Verificação -->
+        <mat-step label="Verificação">
+          <div class="verification">
+            <p>Para garantir a segurança da plataforma, todos os prestadores passam por um processo de validação.</p>
+            <p>Serão realizadas as seguintes verificações:</p>
+            <ul class="verification__list">
+              <li>✅ Validação do CPF</li>
+              <li>✅ Verificação cadastral</li>
+              <li>✅ Análise curricular</li>
+              <li>✅ Análise documental</li>
+              <li>✅ Verificação de antecedentes criminais (conforme permitido pela legislação aplicável)</li>
+            </ul>
+            <p>Após o envio, sua documentação será analisada em até <strong>3 dias úteis</strong>. Durante esse período sua conta ficará indisponível para aceitar serviços. Quando aprovada, você receberá uma notificação por e-mail.</p>
+          </div>
+
+          <div class="stepper-actions">
+            <button mat-stroked-button matStepperPrevious>Voltar</button>
+            <button mat-flat-button color="primary" (click)="submit()" [disabled]="isSubmitting()" style="background:var(--color-green);">
+              @if (isSubmitting()) { <mat-spinner diameter="20" strokeWidth="3"></mat-spinner> } @else { <span>Enviar documentação</span> }
+            </button>
+          </div>
+        </mat-step>
+
+      </mat-stepper>
+
+      <p class="auth-footnote">Já tem conta? <a routerLink="/auth/provider/login">Entrar</a></p>
+    </div>
+  </main>
+</div>

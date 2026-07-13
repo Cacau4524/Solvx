@@ -1,0 +1,67 @@
+<div class="new-request">
+  <a routerLink="/dashboard/cliente" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Voltar
+  </a>
+
+  <h1>Solicitar novo serviço</h1>
+  <p class="subtitle">Descreva o que você precisa — profissionais verificados da sua região vão enviar orçamentos.</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form-grid">
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Categoria do serviço</mat-label>
+      <mat-select formControlName="categoria">
+        @for (c of categorias; track c) { <mat-option [value]="c">{{ c }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Descrição do problema</mat-label>
+      <textarea matInput rows="4" formControlName="descricao" placeholder="Ex.: tomada da cozinha parou de funcionar e preciso trocar o disjuntor..."></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>CEP</mat-label>
+      <input matInput formControlName="cep" appMask="cep" placeholder="00000-000" />
+      @if (isLookingUpCep()) { <mat-icon matSuffix class="spin">autorenew</mat-icon> }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Número</mat-label>
+      <input matInput formControlName="numero" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Rua</mat-label>
+      <input matInput formControlName="rua" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Complemento</mat-label>
+      <input matInput formControlName="complemento" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bairro</mat-label>
+      <input matInput formControlName="bairro" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cidade</mat-label>
+      <input matInput formControlName="cidade" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <input matInput formControlName="estado" maxlength="2" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Data preferida (opcional)</mat-label>
+      <input matInput type="date" formControlName="dataPreferida" />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" class="span-2 submit-btn" [disabled]="isSubmitting()">
+      @if (isSubmitting()) { <mat-spinner diameter="20" strokeWidth="3"></mat-spinner> } @else { <span>Enviar solicitação</span> }
+    </button>
+  </form>
+</div>
