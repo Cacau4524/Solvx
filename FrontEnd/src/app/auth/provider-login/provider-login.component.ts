@@ -3,10 +3,12 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/services/auth.service';
 import { ProviderUser } from '../../core/models/auth.models';
 
@@ -18,6 +20,7 @@ import { ProviderUser } from '../../core/models/auth.models';
     ReactiveFormsModule,
     RouterLink,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -29,6 +32,7 @@ import { ProviderUser } from '../../core/models/auth.models';
 export class ProviderLoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
 
   readonly isLoading = signal(false);
@@ -38,10 +42,15 @@ export class ProviderLoginComponent {
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(6)]],
+    manterConectado: [false],
   });
 
   get email() { return this.form.controls.email; }
   get senha() { return this.form.controls.senha; }
+
+  socialLoginPlaceholder(provider: string): void {
+    this.snackBar.open(`Login com ${provider} em breve.`, 'Fechar', { duration: 3500 });
+  }
 
   onSubmit(): void {
     this.loginError.set(null);

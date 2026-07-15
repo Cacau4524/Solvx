@@ -199,6 +199,15 @@
               <li>✅ Verificação de antecedentes criminais (conforme permitido pela legislação aplicável)</li>
             </ul>
             <p>Após o envio, sua documentação será analisada em até <strong>3 dias úteis</strong>. Durante esse período sua conta ficará indisponível para aceitar serviços. Quando aprovada, você receberá uma notificação por e-mail.</p>
+
+            <mat-checkbox [formControl]="aceiteTermos" style="margin-top:12px;display:block;">
+              Li e aceito os <a routerLink="/termos" target="_blank" (click)="$event.stopPropagation()">Termos de Uso</a>
+              e a <a routerLink="/politica-privacidade" target="_blank" (click)="$event.stopPropagation()">Política de Privacidade</a>.
+            </mat-checkbox>
+
+            @if (aceiteTermos.touched && aceiteTermos.invalid) {
+              <p class="field-error" style="margin-top:8px;">Você precisa aceitar os Termos de Uso para continuar.</p>
+            }
           </div>
 
           <div class="stepper-actions">

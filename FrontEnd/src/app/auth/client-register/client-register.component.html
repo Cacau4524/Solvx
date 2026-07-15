@@ -110,8 +110,13 @@
         }
 
         <mat-checkbox formControlName="aceiteTermos" class="span-2">
-          Aceito os Termos de Uso e Política de Privacidade.
+          Li e aceito os <a routerLink="/termos" target="_blank" (click)="$event.stopPropagation()">Termos de Uso</a>
+          e a <a routerLink="/politica-privacidade" target="_blank" (click)="$event.stopPropagation()">Política de Privacidade</a>.
         </mat-checkbox>
+
+        @if (form.controls.aceiteTermos.touched && form.controls.aceiteTermos.hasError('required')) {
+          <p class="span-2 field-error">Você precisa aceitar os Termos de Uso para continuar.</p>
+        }
 
         <button mat-flat-button color="primary" type="submit" class="span-2 submit-btn" [disabled]="isLoading()">
           @if (isLoading()) { <mat-spinner diameter="20" strokeWidth="3"></mat-spinner> } @else { <span>Criar Conta</span> }

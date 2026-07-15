@@ -4,7 +4,7 @@
     <div class="hero__copy" @fadeInUp>
       <h1 class="hero__title">
         Seu problema.<br />
-        <span class="hero__title--blue">Nossa</span> <span class="hero__title--green">solução.</span>
+        <span class="hero__title--blue">Nossa&nbsp;</span><span class="hero__title--green">solução.</span>
       </h1>
       <p class="hero__subtitle">Encontre profissionais qualificados e confiáveis para qualquer serviço da sua casa.</p>
 
@@ -50,15 +50,7 @@
         <path d="M200 0c-50 60-70 140-30 200s-20 140 30 200V0z" fill="var(--color-green)"/>
       </svg>
 
-      <img
-        src="assets/hero-profissional.jpg"
-        alt="Profissional realizando serviço residencial"
-        class="hero__photo"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-      />
-      <div class="hero__photo-placeholder">
-        <span>Coloque sua foto em<br /><code>src/assets/hero-profissional.jpg</code></span>
-      </div>
+      <app-image-carousel class="hero__photo" [slides]="heroSlides" [intervalMs]="4500" />
 
       <div class="floating-card" @fadeInUp>
         <span class="floating-card__icon">✔</span>

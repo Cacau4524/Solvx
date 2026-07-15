@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +28,7 @@ import { MaskDirective } from '../../shared/directives/mask.directive';
     RouterLink,
     MaskDirective,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -103,6 +105,8 @@ export class ProviderRegisterComponent {
   readonly fotoDocumento = signal<File | null>(null);
   readonly curriculo = signal<File | null>(null);
 
+  readonly aceiteTermos = new FormControl(false, Validators.requiredTrue);
+
   constructor() {
     this.addressForm.controls.cep.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
@@ -149,6 +153,12 @@ export class ProviderRegisterComponent {
       this.addressForm.markAllAsTouched();
       this.professionalForm.markAllAsTouched();
       this.snackBar.open('Revise os campos obrigatórios antes de continuar.', 'Fechar', { duration: 4000 });
+      return;
+    }
+
+    if (this.aceiteTermos.invalid) {
+      this.aceiteTermos.markAsTouched();
+      this.snackBar.open('Você precisa aceitar os Termos de Uso para continuar.', 'Fechar', { duration: 4000 });
       return;
     }
 

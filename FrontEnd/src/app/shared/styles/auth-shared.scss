@@ -260,6 +260,117 @@
   a { color: var(--color-gray-900); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--color-blue); cursor: pointer; }
 }
 
+// ---------- Layout dividido usado nas telas de Login ----------
+
+.auth-split {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+.auth-split__illustration {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.auth-split__art {
+  width: 100%;
+  max-width: 380px;
+  filter: drop-shadow(0 24px 40px rgba(16, 24, 40, 0.14));
+  animation: auth-art-float 6s ease-in-out infinite;
+}
+
+@keyframes auth-art-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.auth-split__panel-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px 60px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  color: var(--color-gray-600);
+  font-size: 12px;
+  font-weight: 600;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-gray-300);
+  }
+}
+
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.auth-social__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1.5px solid var(--color-gray-300);
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 220ms ease, border-color 220ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-gray-600);
+  }
+
+  svg { flex-shrink: 0; }
+}
+
+.auth-remember {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--color-gray-600);
+  margin: -4px 0 4px;
+}
+
+.auth-terms {
+  font-size: 12px;
+  color: var(--color-gray-600);
+  line-height: 1.6;
+  margin: 4px 0 18px;
+
+  a { color: var(--color-blue); text-decoration: none; cursor: pointer; }
+  a:hover { text-decoration: underline; }
+}
+
+@media (max-width: 900px) {
+  .auth-split { grid-template-columns: 1fr; }
+  .auth-split__illustration { display: none; }
+}
+
 @media (max-width: 720px) {
   .auth-cards { grid-template-columns: 1fr; }
   .auth-topbar { padding: 18px 20px; }

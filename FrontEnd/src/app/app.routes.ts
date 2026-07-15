@@ -60,5 +60,21 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./dashboard/provider-dashboard/provider-dashboard.component').then((m) => m.ProviderDashboardComponent),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: 'institucional',
+    loadComponent: () => import('./pages/institucional/institucional.component').then((m) => m.InstitucionalComponent),
+  },
+  {
+    path: 'politica-privacidade',
+    loadComponent: () => import('./pages/politica-privacidade/politica-privacidade.component').then((m) => m.PoliticaPrivacidadeComponent),
+  },
+  {
+    path: 'termos',
+    loadComponent: () => import('./pages/termos-uso/termos-uso.component').then((m) => m.TermosUsoComponent),
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
+  },
+  { path: '**', redirectTo: '404' },
 ];

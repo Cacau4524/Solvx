@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +19,7 @@ import { AuthService } from '../../core/services/auth.service';
     ReactiveFormsModule,
     RouterLink,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -39,6 +41,7 @@ export class ClientLoginComponent {
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(6)]],
+    manterConectado: [false],
   });
 
   get email() { return this.form.controls.email; }
@@ -46,6 +49,10 @@ export class ClientLoginComponent {
 
   togglePassword(): void {
     this.hidePassword.update((v) => !v);
+  }
+
+  socialLoginPlaceholder(provider: string): void {
+    this.snackBar.open(`Login com ${provider} em breve.`, 'Fechar', { duration: 3500 });
   }
 
   onSubmit(): void {

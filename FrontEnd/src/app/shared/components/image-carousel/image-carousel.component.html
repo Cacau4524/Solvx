@@ -1,0 +1,42 @@
+<div
+  class="image-carousel"
+  (mouseenter)="isPaused.set(true)"
+  (mouseleave)="isPaused.set(false)"
+>
+  <div class="image-carousel__track">
+    @for (slide of slides; track slide.src; let i = $index) {
+      <img
+        [src]="slide.src"
+        [alt]="slide.alt"
+        class="image-carousel__img"
+        [class.image-carousel__img--active]="i === activeIndex()"
+        (error)="onImageError($event)"
+        loading="lazy"
+      />
+    }
+    <div class="image-carousel__fallback">
+      <span>Adicione suas fotos em<br /><code>src/assets/carousel/</code></span>
+    </div>
+  </div>
+
+  @if (slides.length > 1) {
+    <button type="button" class="image-carousel__arrow image-carousel__arrow--prev" (click)="prev()" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button type="button" class="image-carousel__arrow image-carousel__arrow--next" (click)="next()" aria-label="Próxima foto">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+    <div class="image-carousel__dots">
+      @for (slide of slides; track slide.src; let i = $index) {
+        <button
+          type="button"
+          class="image-carousel__dot"
+          [class.image-carousel__dot--active]="i === activeIndex()"
+          (click)="goTo(i)"
+          [attr.aria-label]="'Ir para foto ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  }
+</div>

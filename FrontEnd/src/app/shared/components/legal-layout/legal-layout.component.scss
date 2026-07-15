@@ -1,0 +1,85 @@
+.legal-banner {
+  background: linear-gradient(160deg, #0A66C2 0%, #074E96 100%);
+  color: #fff;
+  padding: 56px 0 48px;
+}
+
+.legal-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 16px;
+
+  a { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+}
+
+.legal-banner h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.6vw, 38px);
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.legal-banner p {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 560px;
+  margin: 0;
+}
+
+.legal-content {
+  padding: 48px 0 80px;
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--color-gray-600);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 28px;
+  padding: 0;
+
+  &:hover { color: var(--color-gray-900); }
+}
+
+.legal-body {
+  max-width: 760px;
+
+  ::ng-deep h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin: 32px 0 12px;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  ::ng-deep p {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin: 0 0 14px;
+  }
+
+  ::ng-deep ul {
+    margin: 0 0 14px;
+    padding-left: 20px;
+    color: var(--color-gray-600);
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
+}
+
+@media (max-width: 600px) {
+  .legal-banner { padding: 40px 0 32px; }
+  .legal-content { padding: 32px 0 56px; }
+}
